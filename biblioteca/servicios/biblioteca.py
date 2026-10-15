@@ -1,3 +1,4 @@
+from datetime import date
 from modelos.libro import Libro
 from modelos.prestamo import Prestamo
 class Biblioteca:
@@ -76,3 +77,22 @@ class Biblioteca:
         self.prestamos.append(prestamo)
         libro.disponible = False
         print("Préstamo realizado correctamente")
+
+    def buscar_prestamo_activo(self, isbn):
+        for prestamo in self.prestamos:
+            if prestamo.libro.isbn == isbn and prestamo.activo:
+                return prestamo
+        return None
+
+    def registrar_devolucion(self, isbn):
+        libro = self.buscar_libro(isbn)
+        if not libro:
+            print(f"ERROR: No existe ningún libro con el ISBN {isbn}")
+            return
+        prestamo = self.buscar_prestamo_activo(isbn)
+        if not prestamo:
+            print(f"ERROR: El libro {isbn} no tiene ningún préstamo activo")
+            return
+        prestamo.fecha_devolucion = date.today()
+        libro.disponible = True
+        print("Libro devuelto correctamente")

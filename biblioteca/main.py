@@ -84,6 +84,10 @@ def realizar_prestamo(biblioteca):
     isbn = input("ISBN del libro: ").strip()
     biblioteca.realizar_prestamo(id_usuario, isbn)
 
+def registrar_devolucion(biblioteca):
+    isbn = input("ISBN del libro: ").strip()
+    biblioteca.registrar_devolucion(isbn)
+
 def main():
     miBiblioteca = Biblioteca()
 
@@ -101,7 +105,7 @@ def main():
         elif opcion == 5:
             realizar_prestamo(miBiblioteca)
         elif opcion == 6:
-            pass
+            registrar_devolucion(miBiblioteca)
         elif opcion == 7:
             pass
         elif opcion == 8:

@@ -79,6 +79,11 @@ def listar_libros(biblioteca):
     else:
         print("Opcion incorrecta")
 
+def realizar_prestamo(biblioteca):
+    id_usuario = input("Id del usuario: ").strip()
+    isbn = input("ISBN del libro: ").strip()
+    biblioteca.realizar_prestamo(id_usuario, isbn)
+
 def main():
     miBiblioteca = Biblioteca()
 
@@ -94,7 +99,7 @@ def main():
         elif opcion == 4:
             listar_libros(miBiblioteca)
         elif opcion == 5:
-            pass
+            realizar_prestamo(miBiblioteca)
         elif opcion == 6:
             pass
         elif opcion == 7:

@@ -1,4 +1,5 @@
 from modelos.libro import Libro
+from modelos.prestamo import Prestamo
 class Biblioteca:
     def __init__(self):
         self.libros = []
@@ -58,3 +59,20 @@ class Biblioteca:
             if usuario.id == id:
                 return usuario
         return None
+
+    def realizar_prestamo(self, id_usuario, isbn):
+        usuario = self.buscar_usuario(id_usuario)
+        if not usuario:
+            print(f"ERROR: No existe ningún usuario con el id {id_usuario}")
+            return
+        libro = self.buscar_libro(isbn)
+        if not libro:
+            print(f"ERROR: No existe ningún libro con el ISBN {isbn}")
+            return
+        if not libro.disponible:
+            print(f"ERROR: El libro {isbn} ya se encuentra prestado")
+            return
+        prestamo = Prestamo(usuario, libro)
+        self.prestamos.append(prestamo)
+        libro.disponible = False
+        print("Préstamo realizado correctamente")

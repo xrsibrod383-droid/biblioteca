@@ -145,20 +145,23 @@ class Biblioteca:
                 "fecha_prestamo": str(prestamo.fecha_prestamo),
                 "fecha_devolucion": fecha_devolucion
             })
-        try:
-            os.makedirs("datos", exist_ok=True)
-            with open(FICHERO_DATOS, "w", encoding="utf-8") as fichero:
-                json.dump(datos, fichero, indent=4, ensure_ascii=False)
-            print("Datos guardados correctamente")
-        except OSError as e:
-            print(f"ERROR: No se han podido guardar los datos -> {e}")
+        if not os.path.exists("datos"):
+            os.mkdir("datos")
+        with open(FICHERO_DATOS, "w") as fichero:
+            json.dump(datos, fichero, indent=4)
+        print("Datos guardados correctamente")
+
+    def vaciar(self):
+        self.libros = []
+        self.usuarios = []
+        self.prestamos = []
 
     def cargar_datos(self):
         if not os.path.exists(FICHERO_DATOS):
             print("No hay datos guardados, la biblioteca empieza vacía")
             return
         try:
-            with open(FICHERO_DATOS, "r", encoding="utf-8") as fichero:
+            with open(FICHERO_DATOS, "r") as fichero:
                 datos = json.load(fichero)
             for libro in datos["libros"]:
                 self.libros.append(Libro(libro["isbn"], libro["titulo"], libro["autor"], libro["genero"], libro["anio"], libro["disponible"]))
@@ -170,8 +173,9 @@ class Biblioteca:
                 if usuario and libro:
                     self.prestamos.append(Prestamo(usuario, libro, prestamo["fecha_prestamo"], prestamo["fecha_devolucion"]))
             print("Datos cargados correctamente")
-        except (json.JSONDecodeError, KeyError) as e:
+        except ValueError as e:
             print(f"ERROR: El fichero de datos no es válido -> {e}")
-            self.libros = []
-            self.usuarios = []
-            self.prestamos = []
+            self.vaciar()
+        except KeyError as e:
+            print(f"ERROR: Al fichero de datos le falta el campo {e}")
+            self.vaciar()

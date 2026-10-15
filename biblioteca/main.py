@@ -28,6 +28,43 @@ def registrar_libro(biblioteca):
     libro = Libro(isbn, titulo, autor, genero, anio)
     biblioteca.registrar_libro(libro)
 
+def registrar_usuario(biblioteca):
+    id = input("Id: ").strip()
+    nombre = input("Nombre: ").strip()
+    apellidos = input("Apellidos: ").strip()
+    email = input("Email: ").strip()
+
+    usuario = Usuario(id, nombre, apellidos, email)
+    biblioteca.registrar_usuario(usuario)
+
+def mostrar_libros(libros):
+    if not libros:
+        print("No se ha encontrado ningún libro")
+        return
+    for libro in libros:
+        print(libro)
+
+def buscar_libro(biblioteca):
+    print("1. Buscar por ISBN")
+    print("2. Buscar por título")
+    print("3. Buscar por autor")
+    tipo = int(input("¿Cómo quieres buscar?: "))
+    if tipo == 1:
+        isbn = input("ISBN: ").strip()
+        libro = biblioteca.buscar_libro(isbn)
+        if libro:
+            print(libro)
+        else:
+            print("No existe ningún libro con ese ISBN")
+    elif tipo == 2:
+        titulo = input("Título: ").strip()
+        mostrar_libros(biblioteca.buscar_por_titulo(titulo))
+    elif tipo == 3:
+        autor = input("Autor: ").strip()
+        mostrar_libros(biblioteca.buscar_por_autor(autor))
+    else:
+        print("Opcion incorrecta")
+
 def main():
     miBiblioteca = Biblioteca()
 
@@ -37,9 +74,9 @@ def main():
         if opcion == 1:
             registrar_libro(miBiblioteca)
         elif opcion == 2:
-            pass
+            registrar_usuario(miBiblioteca)
         elif opcion == 3:
-            pass
+            buscar_libro(miBiblioteca)
         elif opcion == 4:
             pass
         elif opcion == 5:

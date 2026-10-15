@@ -65,6 +65,20 @@ def buscar_libro(biblioteca):
     else:
         print("Opcion incorrecta")
 
+def listar_libros(biblioteca):
+    print("1. Todos los libros")
+    print("2. Libros disponibles")
+    print("3. Libros prestados")
+    tipo = int(input("¿Qué libros quieres ver?: "))
+    if tipo == 1:
+        mostrar_libros(biblioteca.libros)
+    elif tipo == 2:
+        mostrar_libros(biblioteca.listar_disponibles())
+    elif tipo == 3:
+        mostrar_libros(biblioteca.listar_prestados())
+    else:
+        print("Opcion incorrecta")
+
 def main():
     miBiblioteca = Biblioteca()
 
@@ -78,7 +92,7 @@ def main():
         elif opcion == 3:
             buscar_libro(miBiblioteca)
         elif opcion == 4:
-            pass
+            listar_libros(miBiblioteca)
         elif opcion == 5:
             pass
         elif opcion == 6:

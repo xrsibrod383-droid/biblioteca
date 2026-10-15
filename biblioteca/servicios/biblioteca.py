@@ -32,6 +32,20 @@ class Biblioteca:
                 encontrados.append(libro)
         return encontrados
 
+    def listar_disponibles(self):
+        disponibles = []
+        for libro in self.libros:
+            if libro.disponible:
+                disponibles.append(libro)
+        return disponibles
+
+    def listar_prestados(self):
+        prestados = []
+        for libro in self.libros:
+            if not libro.disponible:
+                prestados.append(libro)
+        return prestados
+
     def registrar_usuario(self, usuario_nuevo):
         if self.buscar_usuario(usuario_nuevo.id):
             print("El usuario ya esta en la lista")

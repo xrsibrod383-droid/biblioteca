@@ -18,7 +18,7 @@ class Libro:
             f"Autor: {self.autor!r}, "
             f"Año: {self.anio!r}, "
             f"Género: {self.genero!r}, "
-            f"Disponible: {self-self.disponible!r}"
+            f"Disponible: {self.disponible!r}"
         )
 
     def __eq__ (self, libro):

@@ -25,7 +25,7 @@ def registrar_libro(biblioteca):
     anio = input("Año: ").strip()
     genero = input("Género: ").strip()
 
-    libro = Libro(isbn, titulo, autor, anio, genero)
+    libro = Libro(isbn, titulo, autor, genero, anio)
     biblioteca.registrar_libro(libro)
 
 def main():
